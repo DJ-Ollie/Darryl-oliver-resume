@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Darryl "Jason" Oliver — Program Manager</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap');
+
+  :root{
+    --paper:#EDEEE8;
+    --paper-raise:#E3E5DD;
+    --ink:#1F2421;
+    --ink-soft:#4B524C;
+    --line:#C7CBC0;
+    --steel:#2B4C7E;
+    --amber:#C6892E;
+    --white:#FBFBF9;
+    --maxw:920px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Source Serif 4', Georgia, serif;
+    font-size:18px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  h1,h2,h3,.display{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    color:var(--ink);
+  }
+
+  a{color:inherit;}
+
+  ::selection{background:var(--amber);color:var(--white);}
+
+  /* ---------- layout helpers ---------- */
+  section{
+    padding:110px 32px;
+    max-width:var(--maxw);
+    margin:0 auto;
+  }
+
+  .kicker{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:14px;
+    font-weight:500;
+    color:var(--steel);
+    margin-bottom:14px;
+  }
+
+  /* ---------- nav ---------- */
+  nav{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:50;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:22px 32px;
+    background:rgba(237,238,232,0.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid transparent;
+    transition:border-color .3s ease, background .3s ease;
+  }
+  nav.scrolled{
+    border-bottom-color:var(--line);
+  }
+  nav .name{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    font-size:17px;
+  }
+  nav ul{
+    list-style:none;
+    display:flex;
+    gap:28px;
+  }
+  nav a{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:14px;
+    text-decoration:none;
+    color:var(--ink-soft);
+    transition:color .2s ease;
+  }
+  nav a:hover{color:var(--steel);}
+  nav .menu-toggle{display:none;}
+
+  @media(max-width:700px){
+    nav ul{
+      position:fixed;
+      top:64px; right:0;
+      background:var(--paper);
+      flex-direction:column;
+      gap:0;
+      width:220px;
+      border:1px solid var(--line);
+      transform:translateX(240px);
+      transition:transform .3s ease;
+    }
+    nav ul.open{transform:translateX(0);}
+    nav ul li{border-bottom:1px solid var(--line);}
+    nav ul li a{display:block;padding:16px 20px;}
+    nav .menu-toggle{
+      display:block;
+      background:none;border:none;
+      font-family:'Space Grotesk',sans-serif;
+      font-size:14px;
+      cursor:pointer;
+      color:var(--ink);
+    }
+  }
+
+  /* ---------- hero ---------- */
+  #hero{
+    position:relative;
+    max-width:none;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:0 32px;
+    overflow:hidden;
+  }
+  #network-canvas{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    opacity:0.55;
+  }
+  .hero-inner{
+    position:relative;
+    z-index:2;
+    max-width:var(--maxw);
+    margin:0 auto;
+    width:100%;
+  }
+  .hero-inner .kicker{
+    opacity:0;
+    animation:rise .7s ease forwards;
+    animation-delay:.1s;
+  }
+  h1.headline{
+    font-size:clamp(38px,6vw,64px);
+    line-height:1.08;
+    max-width:820px;
+    opacity:0;
+    animation:rise .8s ease forwards;
+    animation-delay:.25s;
+  }
+  .hero-sub{
+    margin-top:26px;
+    max-width:560px;
+    font-size:19px;
+    color:var(--ink-soft);
+    opacity:0;
+    animation:rise .8s ease forwards;
+    animation-delay:.45s;
+  }
+  .hero-cta{
+    margin-top:40px;
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+    opacity:0;
+    animation:rise .8s ease forwards;
+    animation-delay:.6s;
+  }
+  @keyframes rise{
+    from{opacity:0; transform:translateY(14px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  .btn{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:14px;
+    font-weight:500;
+    padding:13px 22px;
+    border-radius:3px;
+    text-decoration:none;
+    display:inline-block;
+    transition:transform .2s ease, background .2s ease, color .2s ease;
+  }
+  .btn-primary{
+    background:var(--ink);
+    color:var(--white);
+  }
+  .btn-primary:hover{background:var(--steel);}
+  .btn-secondary{
+    border:1px solid var(--ink-soft);
+    color:var(--ink);
+  }
+  .btn-secondary:hover{border-color:var(--ink); background:var(--paper-raise);}
+
+  .scroll-cue{
+    position:absolute;
+    bottom:36px; left:32px;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:12px;
+    color:var(--ink-soft);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .scroll-cue .stem{
+    width:1px; height:34px;
+    background:var(--ink-soft);
+    position:relative;
+    overflow:hidden;
+  }
+  .scroll-cue .stem::after{
+    content:'';
+    position:absolute;
+    top:-100%; left:0;
+    width:100%; height:100%;
+    background:var(--steel);
+    animation:cue 1.8s ease-in-out infinite;
+  }
+  @keyframes cue{
+    0%{top:-100%;}
+    60%{top:100%;}
+    100%{top:100%;}
+  }
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(22px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .reveal.in{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  /* ---------- about ---------- */
+  #about p{
+    font-size:20px;
+    max-width:760px;
+    color:var(--ink-soft);
+  }
+  #about p + p{margin-top:18px;}
+  #about strong{color:var(--ink); font-weight:600;}
+
+  /* ---------- competencies ---------- */
+  .comp-grid{
+    display:grid;
+    grid-template-columns:repeat(12,1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    margin-top:44px;
+  }
+  .comp{
+    grid-column:span 6;
+    background:var(--paper);
+    padding:36px 34px;
+    position:relative;
+    cursor:default;
+    transition:background .25s ease;
+  }
+  .comp:hover{background:var(--paper-raise);}
+  .comp:nth-child(3){grid-column:span 12;}
+  @media(max-width:700px){
+    .comp, .comp:nth-child(3){grid-column:span 12;}
+  }
+  .comp .idx{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:13px;
+    color:var(--steel);
+    margin-bottom:16px;
+  }
+  .comp h3{
+    font-size:21px;
+    margin-bottom:10px;
+  }
+  .comp p{
+    color:var(--ink-soft);
+    font-size:16.5px;
+  }
+  .comp .proof{
+    margin-top:14px;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:13px;
+    color:var(--ink);
+    border-top:1px solid var(--line);
+    padding-top:14px;
+    opacity:0;
+    max-height:0;
+    overflow:hidden;
+    transition:opacity .3s ease, max-height .3s ease, margin-top .3s ease;
+  }
+  .comp:hover .proof, .comp:focus-within .proof{
+    opacity:1;
+    max-height:120px;
+  }
+
+  /* ---------- metrics ---------- */
+  #metrics{
+    background:var(--ink);
+    max-width:none;
+    padding:100px 32px;
+  }
+  #metrics .inner{
+    max-width:var(--maxw);
+    margin:0 auto;
+  }
+  #metrics .kicker{color:var(--amber);}
+  #metrics h2{color:var(--white);}
+  .metric-grid{
+    margin-top:50px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:36px;
+  }
+  @media(max-width:700px){
+    .metric-grid{grid-template-columns:repeat(2,1fr);}
+  }
+  .metric .num{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(32px,4vw,46px);
+    font-weight:700;
+    color:var(--white);
+  }
+  .metric .label{
+    margin-top:8px;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:13px;
+    color:#A9AFA6;
+  }
+
+  /* ---------- timeline ---------- */
+  #experience{position:relative;}
+  .timeline{
+    margin-top:50px;
+    position:relative;
+    padding-left:28px;
+  }
+  .timeline::before{
+    content:'';
+    position:absolute;
+    left:0; top:6px; bottom:6px;
+    width:1px;
+    background:var(--line);
+  }
+  .timeline .fill{
+    position:absolute;
+    left:0; top:6px;
+    width:1px;
+    background:var(--steel);
+    height:0%;
+    transition:height 1.2s ease;
+  }
+  .tl-item{
+    position:relative;
+    padding-bottom:46px;
+  }
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{
+    content:'';
+    position:absolute;
+    left:-32px; top:5px;
+    width:9px;height:9px;
+    border-radius:50%;
+    background:var(--paper);
+    border:2px solid var(--ink-soft);
+    transition:border-color .3s ease, background .3s ease;
+  }
+  .tl-item.in::before{
+    border-color:var(--steel);
+    background:var(--steel);
+  }
+  .tl-item .yr{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:13px;
+    color:var(--steel);
+    margin-bottom:6px;
+  }
+  .tl-item h3{font-size:19px;margin-bottom:6px;}
+  .tl-item p{color:var(--ink-soft); font-size:16px;}
+
+  /* ---------- contact / footer ---------- */
+  #contact{text-align:left;}
+  #contact h2{font-size:clamp(30px,4vw,42px); max-width:600px;}
+  #contact p{color:var(--ink-soft); margin-top:16px; max-width:520px;}
+  .contact-links{
+    margin-top:36px;
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  footer{
+    padding:30px 32px 46px;
+    max-width:var(--maxw);
+    margin:0 auto;
+    display:flex;
+    justify-content:space-between;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:13px;
+    color:var(--ink-soft);
+    border-top:1px solid var(--line);
+    flex-wrap:wrap;
+    gap:10px;
+  }
+
+  .placeholder-flag{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:12px;
+    color:var(--amber);
+    border:1px dashed var(--amber);
+    padding:3px 8px;
+    border-radius:3px;
+    display:inline-block;
+    margin-bottom:16px;
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="name">Darryl "Jason" Oliver</div>
+  <button class="menu-toggle" id="menuToggle">Menu</button>
+  <ul id="navList">
+    <li><a href="#about">About</a></li>
+    <li><a href="#competencies">Competencies</a></li>
+    <li><a href="#metrics">Impact</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <canvas id="network-canvas"></canvas>
+  <div class="hero-inner">
+    <div class="kicker">Program Manager · Technical Data & Systems Integration</div>
+    <h1 class="headline">I turn technical complexity into organized systems people can actually run on.</h1>
+    <p class="hero-sub">Over 20 years building the discipline behind complicated technical programs — from hands-on systems work to leading the teams and data structures that keep large programs on schedule. That discipline is the product, not the industry it was built in.</p>
+    <div class="hero-cta">
+      <a href="#competencies" class="btn btn-primary">See how I work</a>
+      <a href="#" class="btn btn-secondary">Download resume (PDF)</a>
+    </div>
+  </div>
+  <div class="scroll-cue"><div class="stem"></div>Scroll</div>
+</section>
+
+<section id="about">
+  <div class="kicker reveal">About</div>
+  <p class="reveal"><strong>My career started with my hands on the equipment, not behind a desk.</strong> I spent six years as a fire control technician, then years more as a quality inspector and team supervisor, before moving into the roles where I now manage the technical data and information systems that large programs depend on to function. Every step added a layer: technical fluency, then process discipline, then people leadership, then systems integration.</p>
+  <p class="reveal">That progression is the actual skill. Knowing how to organize complex technical information, train the people who rely on it, and keep a program's data trustworthy under pressure isn't specific to aircraft — it's the backbone of any industry running something complicated.</p>
+</section>
+
+<section id="competencies">
+  <div class="kicker reveal">What I actually do</div>
+  <h2 class="reveal" style="font-size:clamp(28px,4vw,38px); max-width:640px;">What two decades of technical roles actually built.</h2>
+  <div class="comp-grid reveal">
+    <div class="comp" tabindex="0">
+      <div class="idx">Technical Data & Systems Integration</div>
+      <h3>Turning scattered technical information into one reliable source of truth</h3>
+      <p>Manage the data structures and publication systems that technicians, engineers, and program leadership all depend on being accurate.</p>
+      <div class="proof">Managed the integration of new capabilities into 15 authenticated Special Operations Aircraft flight publications, and helped build two versions of the SOAR Publication Tracking & Management System website.</div>
+    </div>
+    <div class="comp" tabindex="0">
+      <div class="idx">Training & Team Development</div>
+      <h3>Building people who don't need to be told twice</h3>
+      <p>Trained and supervised technical teams from the ground up — the same instinct that shows up as onboarding, documentation, and mentorship in any field.</p>
+      <div class="proof">Assembled and led technician teams on TDY missions up to a year long, and supervised pre- and post-modification testing crews across four different aircraft modification programs.</div>
+    </div>
+    <div class="comp" tabindex="0">
+      <div class="idx">Quality, Process & Program Discipline</div>
+      <h3>Earned from the ground up, not from a textbook</h3>
+      <p>Started as a hands-on fire control technician, moved through quality inspection and team supervision, and now run the program-level processes those roles taught me to respect. Formal program/acquisition training from the Defense Acquisition University backs it up.</p>
+      <div class="proof">Inspected maintenance across 8+ aircraft platforms to DA and ISO-9001 standards, then built the change-request reporting that let program leadership forecast future publication cycles.</div>
+    </div>
+  </div>
+</section>
+
+<section id="metrics">
+  <div class="inner">
+    <div class="kicker reveal">By the numbers</div>
+    <h2 class="reveal" style="font-size:clamp(26px,4vw,34px);">A career built one aircraft platform, one publication, at a time.</h2>
+    <div class="metric-grid">
+      <div class="metric reveal"><div class="num" data-target="20" data-suffix="+">0</div><div class="label">Years in technical & defense roles</div></div>
+      <div class="metric reveal"><div class="num" data-target="15" data-suffix="">0</div><div class="label">Flight publications integrated</div></div>
+      <div class="metric reveal"><div class="num" data-target="8" data-suffix="+">0</div><div class="label">Aircraft platforms supported</div></div>
+      <div class="metric reveal"><div class="num" data-target="2018" data-suffix="">0</div><div class="label">Active Secret Clearance granted</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="kicker reveal">Experience</div>
+  <h2 class="reveal" style="font-size:clamp(26px,4vw,34px);">Career timeline</h2>
+  <div class="timeline">
+    <div class="fill" id="tlFill"></div>
+    <div class="tl-item reveal">
+      <div class="yr">Mar 2025 — Present</div>
+      <h3>Technical Data Manager, Boeing Sikorsky Aircraft Support</h3>
+      <p>Own the accuracy and structure of the technical data systems a large support program runs on.</p>
+    </div>
+    <div class="tl-item reveal">
+      <div class="yr">Feb 2024 — Mar 2025</div>
+      <h3>Technical Data Integration Manager, Boeing Sikorsky Aircraft Support</h3>
+      <p>Integrated technical publication data across teams so information stayed consistent and trustworthy.</p>
+    </div>
+    <div class="tl-item reveal">
+      <div class="yr">May 2022 — Feb 2024</div>
+      <h3>Project Integrator, Boeing Sikorsky Aircraft Support</h3>
+      <p>Managed the integration of new capabilities into 15 flight publications, building custom data products and working across engineering, program office, and publishing stakeholders to hit every change-cycle deadline.</p>
+    </div>
+    <div class="tl-item reveal">
+      <div class="yr">2018 — 2022</div>
+      <h3>Senior Field Engineer I, Raytheon Intelligence & Space</h3>
+      <p>Diagnosed and performed manufacturer-level repairs on sighting and reconnaissance systems across four aircraft and UAS platforms, embedded directly with the manufacturer's engineering team.</p>
+    </div>
+    <div class="tl-item reveal">
+      <div class="yr">2014 — 2018</div>
+      <h3>Technical Publications SME (Weapons Cell Lead), Boeing Sikorsky Aircraft Support</h3>
+      <p>Reviewed technical procedures for accuracy across four aircraft platforms and built the reporting that let leadership forecast future publication workload.</p>
+    </div>
+    <div class="tl-item reveal">
+      <div class="yr">2011 — 2014</div>
+      <h3>Aircraft Modification Team Leader, CSC / L3 / Lockheed Martin</h3>
+      <p>Assembled and led technician teams on TDY deployments up to a year long, supervising testing, calibration, and repair of aircraft systems.</p>
+    </div>
+    <div class="tl-item reveal">
+      <div class="yr">2007 — 2011</div>
+      <h3>Quality Control / Aircraft Modification Inspector IV, CSC</h3>
+      <p>Inspected maintenance across OH-58, AH-64, UH-60, and CH-47 helicopters, and built the workmanship reports that drove the quality trend program.</p>
+    </div>
+    <div class="tl-item reveal">
+      <div class="yr">2004 — 2007</div>
+      <h3>Aircraft Modification Installer, CSC / DynCorp</h3>
+      <p>Removed, installed, and troubleshot avionics packages on Army aircraft using engineering drawings and wiring schematics.</p>
+    </div>
+    <div class="tl-item reveal">
+      <div class="yr">1998 — 2004</div>
+      <h3>Armament / Electrical / Avionics Systems Repairer (15Y), U.S. Army</h3>
+      <p>Maintained weapons, avionics, and fire control systems on deployment, worldwide. Where the technical foundation began.</p>
+    </div>
+  </div>
+  <p class="reveal" style="margin-top:44px; color:var(--ink-soft); font-size:16px;"><strong style="color:var(--ink);">Education:</strong> Defense Acquisition University — Acquisitions, Logistics (2015–2018)</p>
+  <p class="reveal" style="margin-top:10px; color:var(--ink-soft); font-size:16px;"><strong style="color:var(--ink);">Credentials:</strong> Active Secret Clearance (2018) · FCC Licensed, Ship Radar Endorsement · DAU-certified: ACQ 101/120/130, LOG 101/102/103</p>
+</section>
+
+<section id="contact">
+  <h2 class="reveal">Let's talk about what's next.</h2>
+  <p class="reveal">Open to program and technical data leadership roles outside defense as well as within it.</p>
+  <div class="contact-links reveal">
+    <a href="mailto:d.jasonoliver@gmail.com" class="btn btn-primary">Email me</a>
+    <a href="https://www.linkedin.com/in/darryl-jasonoliver-b1568a123" target="_blank" rel="noopener" class="btn btn-secondary">LinkedIn</a>
+    <a href="#" class="btn btn-secondary">Download resume (PDF) — placeholder link</a>
+  </div>
+</section>
+
+<footer>
+  <div>Darryl "Jason" Oliver — Program Manager</div>
+  <div>Built as a placeholder draft</div>
+</footer>
+
+<script>
+  // nav scroll state + mobile toggle
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  });
+  const menuToggle = document.getElementById('menuToggle');
+  const navList = document.getElementById('navList');
+  menuToggle.addEventListener('click', () => navList.classList.toggle('open'));
+  navList.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navList.classList.remove('open')));
+
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold:0.15});
+  revealEls.forEach(el => io.observe(el));
+
+  // animated counters
+  const counters = document.querySelectorAll('.num');
+  const counterIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        const el = e.target;
+        const target = parseFloat(el.dataset.target);
+        const prefix = el.dataset.prefix || '';
+        const suffix = el.dataset.suffix || '';
+        const duration = 1400;
+        const start = performance.now();
+        function tick(now){
+          const p = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          const val = Math.round(target * eased);
+          el.textContent = prefix + val + suffix;
+          if(p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+        counterIO.unobserve(el);
+      }
+    });
+  }, {threshold:0.5});
+  counters.forEach(el => counterIO.observe(el));
+
+  // timeline fill + node activation
+  const tlFill = document.getElementById('tlFill');
+  const tlItems = document.querySelectorAll('.tl-item');
+  const timelineEl = document.querySelector('.timeline');
+  function updateTimeline(){
+    const rect = timelineEl.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const progressPx = Math.min(Math.max(vh * 0.75 - rect.top, 0), rect.height);
+    const pct = rect.height ? (progressPx / rect.height) * 100 : 0;
+    tlFill.style.height = pct + '%';
+    tlItems.forEach(item => {
+      const r = item.getBoundingClientRect();
+      if(r.top < vh * 0.8) item.classList.add('in');
+    });
+  }
+  window.addEventListener('scroll', updateTimeline);
+  window.addEventListener('resize', updateTimeline);
+  updateTimeline();
+
+  // hero network canvas — abstract nodes/connections, no literal imagery
+  const canvas = document.getElementById('network-canvas');
+  const ctx = canvas.getContext('2d');
+  let w, h, nodes = [];
+  const NODE_COUNT = 46;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function resize(){
+    w = canvas.width = canvas.offsetWidth * devicePixelRatio;
+    h = canvas.height = canvas.offsetHeight * devicePixelRatio;
+  }
+  function initNodes(){
+    nodes = Array.from({length: NODE_COUNT}, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      vx: (Math.random() - 0.5) * 0.15 * devicePixelRatio,
+      vy: (Math.random() - 0.5) * 0.15 * devicePixelRatio,
+      r: (Math.random() * 1.6 + 1) * devicePixelRatio
+    }));
+  }
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    const maxDist = 150 * devicePixelRatio;
+    for(let i=0;i<nodes.length;i++){
+      const n = nodes[i];
+      if(!reduceMotion){
+        n.x += n.vx; n.y += n.vy;
+        if(n.x < 0 || n.x > w) n.vx *= -1;
+        if(n.y < 0 || n.y > h) n.vy *= -1;
+      }
+      for(let j=i+1;j<nodes.length;j++){
+        const m = nodes[j];
+        const dx = n.x-m.x, dy = n.y-m.y;
+        const dist = Math.sqrt(dx*dx+dy*dy);
+        if(dist < maxDist){
+          ctx.strokeStyle = `rgba(43,76,126,${(1 - dist/maxDist) * 0.35})`;
+          ctx.lineWidth = devicePixelRatio * 0.6;
+          ctx.beginPath();
+          ctx.moveTo(n.x, n.y);
+          ctx.lineTo(m.x, m.y);
+          ctx.stroke();
+        }
+      }
+    }
+    nodes.forEach(n => {
+      ctx.fillStyle = 'rgba(31,36,33,0.55)';
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
+      ctx.fill();
+    });
+    if(!reduceMotion) requestAnimationFrame(draw);
+  }
+  resize();
+  initNodes();
+  draw();
+  window.addEventListener('resize', () => { resize(); initNodes(); });
+</script>
+
+</body>
+</html>
